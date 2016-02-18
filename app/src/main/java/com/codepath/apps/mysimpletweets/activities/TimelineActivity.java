@@ -1,5 +1,6 @@
 package com.codepath.apps.mysimpletweets.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +79,8 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d("TimelineActivity","Compose Tweet");
+        Intent tweetIntent = new Intent(this,TweetActivity.class);
+        startActivity(tweetIntent);
         return super.onOptionsItemSelected(item);
     }
 
