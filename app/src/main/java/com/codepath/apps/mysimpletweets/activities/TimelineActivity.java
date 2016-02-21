@@ -89,7 +89,8 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeLine(new JsonHttpResponseHandler(){
             @Override public  void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 aTweets.addAll(Tweet.fromJSONArray(json));
-                Log.d("DEBUG", json.toString());
+                String jsonString = json.toString();
+                Log.d("DEBUG", jsonString);
             }
 
             @Override

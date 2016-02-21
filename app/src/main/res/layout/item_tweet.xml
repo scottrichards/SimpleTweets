@@ -37,6 +37,15 @@
         android:layout_toEndOf="@+id/ivProfileImage"/>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/timeAgo"
+        android:layout_marginRight="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"

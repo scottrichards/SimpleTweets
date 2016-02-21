@@ -32,8 +32,6 @@ public class TweetActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         editText = (EditText)findViewById(R.id.editText);
-
-
     }
 
     public void onTweet(View view) {
@@ -42,7 +40,10 @@ public class TweetActivity extends AppCompatActivity {
         client.sendTweet(tweetText,new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+          // TO DO load tweets
           //      aTweets.addAll(Tweet.fromJSONArray(json));
+          //       client.getHomeTimeLine();
+
                 Log.d("DEBUG", json.toString());
             }
 
