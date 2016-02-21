@@ -29,7 +29,7 @@ public class TwitterClient extends OAuthBaseClient {
 	public static final String REST_CONSUMER_KEY = "TZIS5JofwDMT8qKL3YF4Rok2J";       // Change this
 	public static final String REST_CONSUMER_SECRET = "qOT3AHvaXxps1GqVIl96EGgv2UUredkuxPwYXo12Mnjeag363Y"; // Change this
 	public static final String REST_CALLBACK_URL = "oauth://bwsimpletweets"; // Change this (here and in manifest)
-	private int lowest_id_received;
+	public long lowest_id_received = 0;
 
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
@@ -50,7 +50,10 @@ public class TwitterClient extends OAuthBaseClient {
 		// Can specify query string params directly or through RequestParams.
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
-		params.put("since_id",1);
+		params.put("since_id", 1);
+		if (lowest_id_received != 0) {
+			params.put("max_id",lowest_id_received);
+		}
 		Log.d("DEBUG", "Making request to apiUrl: " + apiUrl);
 		getClient().get(apiUrl, params, handler);
 	}

@@ -29,6 +29,8 @@ public class TimelineActivity extends AppCompatActivity {
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+    private long lowestId;
+    private int currentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class TimelineActivity extends AppCompatActivity {
         // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
         // Deserialize API response and then construct new objects to append to the adapter
         Log.d("DEBUG","do something here");
+        populateTimeline();
     }
 
     @Override
@@ -89,6 +92,7 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeLine(new JsonHttpResponseHandler(){
             @Override public  void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 aTweets.addAll(Tweet.fromJSONArray(json));
+                client.lowest_id_received = findMinId();
                 String jsonString = json.toString();
                 Log.d("DEBUG", jsonString);
             }
@@ -98,5 +102,18 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("DEBUG",errorResponse.toString());
             }
         });
+    }
+
+    // after adding tweets look up the min id
+    private long findMinId() {
+        for (int i=currentPosition;i<tweets.size();i++) {
+            Tweet tweet = tweets.get(i);
+            long id = tweet.getUid();
+            if (id < lowestId || lowestId == 0) {
+                lowestId = id;
+            }
+            currentPosition++;
+        }
+        return lowestId;
     }
 }
