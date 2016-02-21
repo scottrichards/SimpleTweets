@@ -53,6 +53,7 @@
         android:text=""
         android:textColor="@color/black"
         android:id="@+id/tvBody"
+        android:autoLink="all"
         android:layout_below="@+id/tvUserName"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:layout_toEndOf="@+id/ivProfileImage"

@@ -1,5 +1,6 @@
 package com.codepath.apps.mysimpletweets.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,14 +37,11 @@ public class TweetActivity extends AppCompatActivity {
 
     public void onTweet(View view) {
         String tweetText = editText.getText().toString();
-        Log.d("TweetActivity","tweet: " + tweetText);
-        client.sendTweet(tweetText,new JsonHttpResponseHandler() {
+        Log.d("TweetActivity", "tweet: " + tweetText);
+        client.sendTweet(tweetText, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-          // TO DO load tweets
-          //      aTweets.addAll(Tweet.fromJSONArray(json));
-          //       client.getHomeTimeLine();
-
+                callBackToTimeline();
                 Log.d("DEBUG", json.toString());
             }
 
@@ -52,5 +50,10 @@ public class TweetActivity extends AppCompatActivity {
                 Log.d("DEBUG", errorResponse.toString());
             }
         });
+    }
+
+    public void callBackToTimeline() {
+        Intent i = new Intent(this, TimelineActivity.class);
+        startActivity(i);
     }
 }
