@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.adapters.TweetsArrayAdapter;
@@ -31,13 +32,14 @@ public class TimelineActivity extends AppCompatActivity {
     private ListView lvTweets;
     private long lowestId;
     private int currentPosition = 0;
+    private ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        pb = (ProgressBar) findViewById(R.id.pbLoading);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
         client = TwitterApplication.getRestClient();
         lvTweets = (ListView)findViewById(R.id.lvTweets);
@@ -46,6 +48,7 @@ public class TimelineActivity extends AppCompatActivity {
         lvTweets.setAdapter(aTweets);
         populateTimeline();
         setupScrolling();
+        // on some click or some loading we need to wait for...
     }
 
     // setupScrollng
@@ -89,17 +92,20 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void populateTimeline() {
         Log.d("DEBUG","getHomeTimeLine");
+        pb.setVisibility(ProgressBar.VISIBLE);
         client.getHomeTimeLine(new JsonHttpResponseHandler(){
             @Override public  void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 aTweets.addAll(Tweet.fromJSONArray(json));
                 client.lowest_id_received = findMinId();
                 String jsonString = json.toString();
+                pb.setVisibility(ProgressBar.INVISIBLE);
                 Log.d("DEBUG", jsonString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.d("DEBUG",errorResponse.toString());
+                pb.setVisibility(ProgressBar.INVISIBLE);
             }
         });
     }
