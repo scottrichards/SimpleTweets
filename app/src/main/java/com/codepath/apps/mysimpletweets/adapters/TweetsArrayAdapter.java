@@ -42,6 +42,12 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
             long dateMillis = sf.parse(rawJsonDate).getTime();
             relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+            relativeDate = relativeDate.replaceFirst("hours ago","h");
+            relativeDate = relativeDate.replaceFirst("hour ago","h");
+            relativeDate = relativeDate.replaceFirst("minute ago","m");
+            relativeDate = relativeDate.replaceFirst("minutes ago","m");
+            relativeDate = relativeDate.replaceFirst("days ago","d");
+            relativeDate = relativeDate.replaceFirst("day ago","d");
         } catch (ParseException e) {
             e.printStackTrace();
         }
