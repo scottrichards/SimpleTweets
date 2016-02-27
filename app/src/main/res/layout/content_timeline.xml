@@ -19,7 +19,7 @@
     <fragment android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:name="com.codepath.apps.mysimpletweets.fragments.TweetsListFragment"
-              android:id="@+id/fragment" android:layout_alignParentTop="true"
+              android:id="@+id/fragmentTweetList" android:layout_alignParentTop="true"
               android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
               tools:layout="@layout/fragment_tweets_list"
               android:layout_alignParentBottom="true" android:layout_alignParentRight="true"
