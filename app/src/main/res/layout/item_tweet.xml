@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/timeAgo"
-        android:layout_marginRight="1dp"
+        android:layout_marginRight="4dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         />
