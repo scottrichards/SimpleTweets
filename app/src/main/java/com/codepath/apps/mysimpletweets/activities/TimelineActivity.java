@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class TimelineActivity extends AppCompatActivity {
-    private TwitterClient client;
+
     private TweetsListFragment fragmentTweetsList;
 
     @Override
@@ -37,12 +37,12 @@ public class TimelineActivity extends AppCompatActivity {
 //        pb = (ProgressBar) findViewById(R.id.pbLoading);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        client = TwitterApplication.getRestClient();
+//        client = TwitterApplication.getRestClient();
 //        lvTweets = (ListView)findViewById(R.id.lvTweets);
 //        tweets = new ArrayList<Tweet>();
 //        aTweets = new TweetsArrayAdapter(this, tweets);
 //        lvTweets.setAdapter(aTweets);
-        populateTimeline();
+//        populateTimeline();
         if (savedInstanceState == null) {
             fragmentTweetsList = (TweetsListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentTweetList);
         }
@@ -70,7 +70,7 @@ public class TimelineActivity extends AppCompatActivity {
         // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
         // Deserialize API response and then construct new objects to append to the adapter
         Log.d("DEBUG","do something here");
-        populateTimeline();
+//        populateTimeline();
     }
 
     @Override
@@ -89,25 +89,7 @@ public class TimelineActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void populateTimeline() {
-        Log.d("DEBUG", "getHomeTimeLine");
- //       pb.setVisibility(ProgressBar.VISIBLE);
-        client.getHomeTimeLine(new JsonHttpResponseHandler(){
-            @Override public  void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                fragmentTweetsList.adAll(Tweet.fromJSONArray(json));
-//                client.lowest_id_received = findMinId();
-                String jsonString = json.toString();
-//                pb.setVisibility(ProgressBar.INVISIBLE);
-                Log.d("DEBUG", jsonString);
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("DEBUG", errorResponse.toString());
- //               pb.setVisibility(ProgressBar.INVISIBLE);
-            }
-        });
-    }
 
 //    // after adding tweets look up the min id
 //    private long findMinId() {
