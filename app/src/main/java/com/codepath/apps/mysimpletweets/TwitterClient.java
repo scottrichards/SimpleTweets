@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -65,6 +66,15 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("status", tweetMessage);
 		Log.d("DEBUG", "Making request to apiUrl: " + apiUrl);
 		getClient().post(apiUrl, params, handler);
+	}
+
+	public void getMentionsTimeLine(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		Log.d("DEBUG", "Making request to apiUrl: " + apiUrl);
+		getClient().get(apiUrl, params, handler);
 	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
