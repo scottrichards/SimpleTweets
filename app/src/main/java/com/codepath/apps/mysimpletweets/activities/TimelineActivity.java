@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.adapters.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.TwitterApplication;
@@ -46,6 +47,8 @@ public class TimelineActivity extends AppCompatActivity {
 
         ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(new TweetsPagerAdapater(getSupportFragmentManager()));
+        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+        tabStrip.setViewPager(viewPager);
 //        client = TwitterApplication.getRestClient();
 //        lvTweets = (ListView)findViewById(R.id.lvTweets);
 //        tweets = new ArrayList<Tweet>();

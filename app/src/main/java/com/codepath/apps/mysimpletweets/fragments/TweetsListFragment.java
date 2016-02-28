@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.adapters.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.models.Tweet;
@@ -43,6 +44,7 @@ public class TweetsListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         tweets = new ArrayList<Tweet>();
         aTweets = new TweetsArrayAdapter(getActivity(), tweets);
+
   //      setupScrolling();
     }
 
