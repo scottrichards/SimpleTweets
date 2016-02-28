@@ -129,6 +129,11 @@ public class TimelineActivity extends AppCompatActivity {
         }
     }
 
+    public void onProfileView(MenuItem menuItem) {
+        Log.d("Timeline","onProfileView");
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
 
 //    // after adding tweets look up the min id
 //    private long findMinId() {

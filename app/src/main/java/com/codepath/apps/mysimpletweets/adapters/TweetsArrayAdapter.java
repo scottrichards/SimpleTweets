@@ -48,6 +48,8 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
             relativeDate = relativeDate.replaceFirst("minutes ago","m");
             relativeDate = relativeDate.replaceFirst("days ago","d");
             relativeDate = relativeDate.replaceFirst("day ago","d");
+            relativeDate = relativeDate.replaceFirst("seconds ago","s");
+            relativeDate = relativeDate.replaceFirst("second ago","s");
         } catch (ParseException e) {
             e.printStackTrace();
         }
