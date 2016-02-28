@@ -41,9 +41,9 @@ public class UserTimelineFragment extends TweetsListFragment {
         Log.d("DEBUG", "getHomeTimeLine");
         String screenName = getArguments().getString("screenName");
         //       pb.setVisibility(ProgressBar.VISIBLE);
-        client.getUserTimeline(new JsonHttpResponseHandler() {
+        client.getUserTimeline(screenName,new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+            public void onSuccess ( int statusCode, Header[] headers, JSONArray json){
                 adAll(Tweet.fromJSONArray(json));
 //                client.lowest_id_received = findMinId();
                 String jsonString = json.toString();
@@ -52,7 +52,8 @@ public class UserTimelineFragment extends TweetsListFragment {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            public void onFailure ( int statusCode, Header[] headers, Throwable
+            throwable, JSONObject errorResponse){
                 Log.d("DEBUG", errorResponse.toString());
                 //               pb.setVisibility(ProgressBar.INVISIBLE);
             }

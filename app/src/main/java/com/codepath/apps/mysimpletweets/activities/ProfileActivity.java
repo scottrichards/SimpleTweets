@@ -55,9 +55,13 @@ public class ProfileActivity extends AppCompatActivity {
     private void populateProfileHeader(User user) {
         TextView tvName = (TextView)findViewById(R.id.tvName);
         TextView tvTagname = (TextView)findViewById(R.id.tvTagname);
+        TextView tvFollowers = (TextView)findViewById(R.id.followersText);
+        TextView tvFollowing = (TextView)findViewById(R.id.followingText);
         ImageView imageView = (ImageView) findViewById(R.id.profileImageView);
         tvName.setText(user.getName());
         tvTagname.setText(user.getTagname());
+        tvFollowing.setText(String.valueOf(user.getFollowingsCount()));
+        tvFollowers.setText(String.valueOf(user.getFollowersCount()));
         Picasso.with(this).load(user.getProfileImageUrl()).into(imageView);
     }
 
