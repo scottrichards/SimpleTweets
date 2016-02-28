@@ -12,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.R;
@@ -99,6 +101,15 @@ public class TimelineActivity extends AppCompatActivity {
         Intent tweetIntent = new Intent(this,TweetActivity.class);
         startActivity(tweetIntent);
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onUserNameClick(View view) {
+        Log.d("TimelineActivity", "onUserClick");
+        TextView userNameView = (TextView)view.findViewById(R.id.tvUserName);
+        String userName = (String) userNameView.getText();
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("screenName",userName);
+        startActivity(intent);
     }
 
     public class TweetsPagerAdapater extends FragmentPagerAdapter {

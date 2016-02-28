@@ -35,7 +35,9 @@
         android:layout_marginLeft="1dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tvName"
-        android:layout_toEndOf="@+id/ivProfileImage"/>
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:onClick="onUserNameClick"
+        />
 
 
     <TextView
