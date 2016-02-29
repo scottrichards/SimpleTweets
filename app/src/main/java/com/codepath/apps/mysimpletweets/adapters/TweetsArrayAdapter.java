@@ -1,7 +1,10 @@
 package com.codepath.apps.mysimpletweets.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.R;
+import com.codepath.apps.mysimpletweets.activities.ProfileActivity;
 import com.codepath.apps.mysimpletweets.models.Tweet;
+import com.codepath.apps.mysimpletweets.models.Username;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -20,11 +25,30 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import static android.support.v4.app.ActivityCompat.startActivity;
+
+
+
 /**
  * Created by scottrichards on 11/22/15.
  */
 // Turn the Tweet objects into Views displayed in the list
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
+    // for sending OpenProfile events back to the parent activity
+    private MyCustomObjectListener listener;
+
+    // Step 1 - This interface defines the type of messages I want to communicate to my owner
+    public interface MyCustomObjectListener {
+        // These methods are the different events and
+        // need to pass relevant arguments related to the event triggered
+        public void onOpenUserProfile(String username);
+    }
+
+    // Assign the listener implementing events interface that will receive the events
+    public void setCustomObjectListener(MyCustomObjectListener listener) {
+        this.listener = listener;
+    }
+
 
     public TweetsArrayAdapter(Context context,List<Tweet> tweets) {
         super(context,android.R.layout.simple_list_item_1, tweets);
@@ -74,6 +98,18 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
         tvTime.setText(relativeTimeAgo);
         tvName.setText(tweet.getUser().getName());
         lvProfileImage.setImageResource(android.R.color.transparent);
+        Username userName = new Username();
+        userName.setName(tweet.getUser().getScreenName());
+        lvProfileImage.setTag(userName);
+        lvProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Username username = (Username) v.getTag();
+                if (username != null) {
+                    Log.d("TweetsArrayAdapter", "clicked on username: " + username);
+                }
+            }
+        });
         Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(lvProfileImage);
         return convertView;
     }

@@ -31,21 +31,20 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         client = TwitterApplication.getRestClient();
-        client.getUserInfo(new JsonHttpResponseHandler() {
-               @Override
-               public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                   super.onSuccess(statusCode, headers, response);
-                   user = User.fromJSON(response);
-                   getSupportActionBar().setTitle(user.getScreenName());
-                   populateProfileHeader(user);
-               }
-                           }
-        );
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // get the users screen Name
-        String screenName = getIntent().getStringExtra("screenName");
+        String screenName = getIntent().getStringExtra("screenName");   // get screen name from Intent
         UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
+        client.getUserInfo(screenName,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                user = User.fromJSON(response);
+                getSupportActionBar().setTitle(user.getScreenName());
+                populateProfileHeader(user);
+            }
+        });
         // Display User Fragment
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.flContainer,userTimelineFragment);

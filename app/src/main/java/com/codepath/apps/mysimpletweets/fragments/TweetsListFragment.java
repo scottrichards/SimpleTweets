@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -28,6 +29,33 @@ public class TweetsListFragment extends Fragment {
     private long lowestId;
     private int currentPosition = 0;
     private ProgressBar pb;
+    // for sending OpenProfile events back to the parent activity
+    private MyCustomObjectListener listener;
+
+    // Step 1 - This interface defines the type of messages I want to communicate to my owner
+    public interface MyCustomObjectListener {
+        // These methods are the different events and
+        // need to pass relevant arguments related to the event triggered
+        public void onOpenUserProfile(String username);
+    }
+
+    // Assign the listener implementing events interface that will receive the events
+    public void setCustomObjectListener(MyCustomObjectListener listener) {
+        this.listener = listener;
+    }
+
+    // Store the listener (activity) that will have events fired once the fragment is attached
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        if (activity instanceof AdapterView.OnItemSelectedListener) {
+//            listener = (OnItemSelectedListener) activity;
+//        } else {
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement MyListFragment.OnItemSelectedListener");
+//        }
+//    }
+
 
     @Nullable
     @Override
@@ -45,7 +73,7 @@ public class TweetsListFragment extends Fragment {
         tweets = new ArrayList<Tweet>();
         aTweets = new TweetsArrayAdapter(getActivity(), tweets);
 
-  //      setupScrolling();
+//        setupScrolling();
     }
 
     public void adAll(List<Tweet> tweets) {
