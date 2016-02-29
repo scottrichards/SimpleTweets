@@ -61,6 +61,7 @@ public class TweetsListFragment extends Fragment implements TweetsArrayAdapter.M
         View v = inflater.inflate(R.layout.fragment_tweets_list, container, false);
         lvTweets = (ListView)v.findViewById(R.id.lvTweets);
         pb = (ProgressBar)v.findViewById(R.id.pbLoading);
+        pb.setVisibility(View.VISIBLE);
         lvTweets.setAdapter(aTweets);
         setupScrolling();
         return v;
@@ -113,6 +114,18 @@ public class TweetsListFragment extends Fragment implements TweetsArrayAdapter.M
         } else if (this instanceof UserTimelineFragment) {
             UserTimelineFragment userTimelineFragment = (UserTimelineFragment)this;
             userTimelineFragment.populateTimeline();
+        }
+    }
+
+    public void showProgressBar() {
+        if (pb != null) {
+            pb.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideProgressBar() {
+        if (pb!=null) {
+            pb.setVisibility(View.GONE);
         }
     }
 

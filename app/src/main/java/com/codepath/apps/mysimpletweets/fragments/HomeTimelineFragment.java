@@ -28,20 +28,20 @@ public class HomeTimelineFragment extends TweetsListFragment {
 
     public void populateTimeline() {
         Log.d("DEBUG", "getHomeTimeLine");
-        //       pb.setVisibility(ProgressBar.VISIBLE);
+        showProgressBar();
         client.getHomeTimeLine(new JsonHttpResponseHandler(){
             @Override public  void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 adAll(Tweet.fromJSONArray(json));
                 client.lowest_id_received = findMinId();
                 String jsonString = json.toString();
-//                pb.setVisibility(ProgressBar.INVISIBLE);
+                hideProgressBar();
                 Log.d("DEBUG", jsonString);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.d("DEBUG", errorResponse.toString());
-                //               pb.setVisibility(ProgressBar.INVISIBLE);
+                hideProgressBar();
             }
         });
     }
