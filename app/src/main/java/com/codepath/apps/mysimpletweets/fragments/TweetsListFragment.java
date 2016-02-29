@@ -16,6 +16,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.adapters.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.models.Tweet;
+import com.codepath.apps.mysimpletweets.models.User;
 import com.codepath.apps.mysimpletweets.utils.EndlessScrollListener;
 
 import java.util.ArrayList;
@@ -109,11 +110,14 @@ public class TweetsListFragment extends Fragment implements TweetsArrayAdapter.M
         if (this instanceof HomeTimelineFragment) {
             HomeTimelineFragment homeTimelineFragment = (HomeTimelineFragment)this;
             homeTimelineFragment.populateTimeline();
+        } else if (this instanceof UserTimelineFragment) {
+            UserTimelineFragment userTimelineFragment = (UserTimelineFragment)this;
+            userTimelineFragment.populateTimeline();
         }
     }
 
     // after adding tweets look up the min id
-    private long findMinId() {
+    public long findMinId() {
         for (int i=currentPosition;i<tweets.size();i++) {
             Tweet tweet = tweets.get(i);
             long id = tweet.getUid();

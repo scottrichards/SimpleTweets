@@ -37,7 +37,7 @@ public class UserTimelineFragment extends TweetsListFragment {
         populateTimeline();
     }
 
-    private void populateTimeline() {
+    public void populateTimeline() {
         Log.d("DEBUG", "getHomeTimeLine");
         String screenName = getArguments().getString("screenName");
         //       pb.setVisibility(ProgressBar.VISIBLE);

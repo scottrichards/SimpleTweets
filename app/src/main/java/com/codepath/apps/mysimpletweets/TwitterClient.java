@@ -96,12 +96,17 @@ public class TwitterClient extends OAuthBaseClient {
 	}
 
 	public void getUserInfo(String screenName, AsyncHttpResponseHandler handler) {
-		String apiUrl = getApiUrl("users/show.json");
-		// Can specify query string params directly or through RequestParams.
-		RequestParams params = new RequestParams();
-		params.put("screen_name",screenName);
-		Log.d("DEBUG", "Making request to apiUrl: " + apiUrl);
-		getClient().get(apiUrl, params, handler);
+		// if no screenName call verify_credentials api to get info for current user
+		if (screenName == null || screenName.length() == 0) {
+			getUserInfo(handler);
+		} else {	// otherwise call users/show to look up info for specified username
+			String apiUrl = getApiUrl("users/show.json");
+			// Can specify query string params directly or through RequestParams.
+			RequestParams params = new RequestParams();
+			params.put("screen_name", screenName);
+			Log.d("DEBUG", "Making request to apiUrl: " + apiUrl);
+			getClient().get(apiUrl, params, handler);
+		}
 	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

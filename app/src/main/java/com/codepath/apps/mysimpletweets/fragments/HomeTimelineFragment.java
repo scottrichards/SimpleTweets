@@ -32,7 +32,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
         client.getHomeTimeLine(new JsonHttpResponseHandler(){
             @Override public  void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 adAll(Tweet.fromJSONArray(json));
-//                client.lowest_id_received = findMinId();
+                client.lowest_id_received = findMinId();
                 String jsonString = json.toString();
 //                pb.setVisibility(ProgressBar.INVISIBLE);
                 Log.d("DEBUG", jsonString);
