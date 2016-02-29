@@ -26,7 +26,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
         populateTimeline();
     }
 
-    private void populateTimeline() {
+    public void populateTimeline() {
         Log.d("DEBUG", "getHomeTimeLine");
         //       pb.setVisibility(ProgressBar.VISIBLE);
         client.getHomeTimeLine(new JsonHttpResponseHandler(){

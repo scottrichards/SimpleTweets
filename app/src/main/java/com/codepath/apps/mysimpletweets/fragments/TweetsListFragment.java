@@ -61,6 +61,7 @@ public class TweetsListFragment extends Fragment implements TweetsArrayAdapter.M
         lvTweets = (ListView)v.findViewById(R.id.lvTweets);
         pb = (ProgressBar)v.findViewById(R.id.pbLoading);
         lvTweets.setAdapter(aTweets);
+        setupScrolling();
         return v;
     }
 
@@ -70,7 +71,6 @@ public class TweetsListFragment extends Fragment implements TweetsArrayAdapter.M
         tweets = new ArrayList<Tweet>();
         aTweets = new TweetsArrayAdapter(getActivity(), tweets);
         aTweets.setCustomObjectListener(this);
-//        setupScrolling();
     }
 
     public void adAll(List<Tweet> tweets) {
@@ -85,7 +85,7 @@ public class TweetsListFragment extends Fragment implements TweetsArrayAdapter.M
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to your AdapterView
                 //              customLoadMoreDataFromApi(page);
-                // or customLoadMoreDataFromApi(totalItemsCount);
+                customLoadMoreDataFromApi();
                 return true; // ONLY if more data is actually being loaded; false otherwise.
             }
         });
@@ -101,4 +101,27 @@ public class TweetsListFragment extends Fragment implements TweetsArrayAdapter.M
         // Code to handle object ready
     }
 
+    public void customLoadMoreDataFromApi() {
+        // This method probably sends out a network request and appends new data items to your adapter.
+        // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
+        // Deserialize API response and then construct new objects to append to the adapter
+        Log.d("DEBUG", "do something here");
+        if (this instanceof HomeTimelineFragment) {
+            HomeTimelineFragment homeTimelineFragment = (HomeTimelineFragment)this;
+            homeTimelineFragment.populateTimeline();
+        }
+    }
+
+    // after adding tweets look up the min id
+    private long findMinId() {
+        for (int i=currentPosition;i<tweets.size();i++) {
+            Tweet tweet = tweets.get(i);
+            long id = tweet.getUid();
+            if (id < lowestId || lowestId == 0) {
+                lowestId = id;
+            }
+            currentPosition++;
+        }
+        return lowestId;
+    }
 }
