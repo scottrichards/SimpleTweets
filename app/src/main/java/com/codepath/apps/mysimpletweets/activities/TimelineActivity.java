@@ -13,27 +13,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.R;
-import com.codepath.apps.mysimpletweets.adapters.TweetsArrayAdapter;
-import com.codepath.apps.mysimpletweets.TwitterApplication;
-import com.codepath.apps.mysimpletweets.TwitterClient;
 import com.codepath.apps.mysimpletweets.fragments.HomeTimelineFragment;
 import com.codepath.apps.mysimpletweets.fragments.MentionsTimelineFragment;
 import com.codepath.apps.mysimpletweets.fragments.TweetsListFragment;
-import com.codepath.apps.mysimpletweets.models.Tweet;
-import com.codepath.apps.mysimpletweets.utils.EndlessScrollListener;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.MyCustomFragmentListener {
 
@@ -43,7 +30,6 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-//        pb = (ProgressBar) findViewById(R.id.pbLoading);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,40 +37,6 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         viewPager.setAdapter(new TweetsPagerAdapater(getSupportFragmentManager()));
         PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip)findViewById(R.id.tabs);
         tabStrip.setViewPager(viewPager);
-//        client = TwitterApplication.getRestClient();
-//        lvTweets = (ListView)findViewById(R.id.lvTweets);
-//        tweets = new ArrayList<Tweet>();
-//        aTweets = new TweetsArrayAdapter(this, tweets);
-//        lvTweets.setAdapter(aTweets);
-//        populateTimeline();
-//        if (savedInstanceState == null) {
-//            fragmentTweetsList = (TweetsListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentTweetList);
-//        }
-//        setupScrolling();
-        // on some click or some loading we need to wait for...
-    }
-
-//    // setupScrollng
-//    private void setupScrolling() {
-//        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-//            @Override
-//            public boolean onLoadMore(int page, int totalItemsCount) {
-//                // Triggered only when new data needs to be appended to the list
-//                // Add whatever code is needed to append new items to your AdapterView
-//                customLoadMoreDataFromApi(page);
-//                // or customLoadMoreDataFromApi(totalItemsCount);
-//                return true; // ONLY if more data is actually being loaded; false otherwise.
-//            }
-//        });
-//    }
-
-    // Append more data into the adapter
-    public void customLoadMoreDataFromApi(int offset) {
-        // This method probably sends out a network request and appends new data items to your adapter.
-        // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
-        // Deserialize API response and then construct new objects to append to the adapter
-        Log.d("DEBUG", "do something here");
-//        populateTimeline();
     }
 
     @Override
@@ -155,16 +107,4 @@ public class TimelineActivity extends AppCompatActivity implements TweetsListFra
         startActivity(intent);
     }
 
-//    // after adding tweets look up the min id
-//    private long findMinId() {
-//        for (int i=currentPosition;i<tweets.size();i++) {
-//            Tweet tweet = tweets.get(i);
-//            long id = tweet.getUid();
-//            if (id < lowestId || lowestId == 0) {
-//                lowestId = id;
-//            }
-//            currentPosition++;
-//        }
-//        return lowestId;
-//    }
 }
