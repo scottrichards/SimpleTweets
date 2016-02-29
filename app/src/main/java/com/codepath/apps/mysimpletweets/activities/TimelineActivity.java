@@ -35,9 +35,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.MyCustomFragmentListener {
 
-    private TweetsListFragment fragmentTweetsList;
+ //   private TweetsListFragment fragmentTweetsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +106,18 @@ public class TimelineActivity extends AppCompatActivity {
     public void onUserNameClick(View view) {
         Log.d("TimelineActivity", "onUserClick");
         TextView userNameView = (TextView)view.findViewById(R.id.tvUserName);
-        String userName = (String) userNameView.getText();
+        openUserProfile((String)userNameView.getText());
+    }
+
+    @Override
+    public void onOpenUserProfile(String username) {
+        Log.d("TweetsListFragment", "open user name: " + username);
+        openUserProfile(username);
+    }
+
+    public void openUserProfile(String username) {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("screenName",userName);
+        intent.putExtra("screenName",username);
         startActivity(intent);
     }
 

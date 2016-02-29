@@ -107,6 +107,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
                 Username username = (Username) v.getTag();
                 if (username != null) {
                     Log.d("TweetsArrayAdapter", "clicked on username: " + username);
+                    listener.onOpenUserProfile(username.getName());
                 }
             }
         });
